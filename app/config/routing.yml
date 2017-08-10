@@ -1,3 +1,11 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+places:
+    resource: AppBundle\Controller\PlaceController
+    type: rest
+
+users:
+    resource: AppBundle\Controller\UserController
+    type: rest

@@ -33,6 +33,9 @@ framework:
     php_errors:
         log: true
 
+    serializer:
+        enabled: true
+
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
@@ -68,3 +71,13 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+#Configuration de FOSRestBundle
+fos_rest:
+    routing_loader:
+        include_format: false
+    view:
+        view_response_listener: true  # le listener qui nous permet de renvoyer juste une instance de View
+    format_listener:  # mecanisme qui permet de gerer les formats
+        rules:
+            - { path: '^/', priorities: ['json'], fallback_format: 'json' }

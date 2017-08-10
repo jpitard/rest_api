@@ -9,13 +9,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Place;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 class PlaceController extends Controller
 {
 
     /**
-     * @Route("/places", name="places_list")
-     * @Method({"GET"})
+     * @Rest\View()
+     * @Rest\Get("/places")
      */
     public function getPlacesAction(Request $request){
 
@@ -24,30 +25,31 @@ class PlaceController extends Controller
             ->findAll();
         /* @var $places Place[] */
 
-        $formatted = [];
-        foreach ($places as $place) {
-            $formatted[] = [
-                'id' => $place->getId(),
-                'name' => $place->getName(),
-                'address' => $place->getAddress(),
-            ];
-        }
-
-      //  die(dump($formatted));
-
-        return new JsonResponse($formatted);
+//        $formatted = [];
+//        foreach ($places as $place) {
+//            $formatted[] = [
+//                'id' => $place->getId(),
+//                'name' => $place->getName(),
+//                'address' => $place->getAddress(),
+//            ];
+//        }
+//
+//      //  die(dump($formatted));
+//
+//        return new JsonResponse($formatted);
+        return $places;
 
     }
 
     /**
-     * @Route("/places/{place_id}", name="places_one")
-     * @Method({"GET"})
+     * @Rest\View()
+     * @Rest\Get("/places/{id}")
      */
     public function getPlaceAction(Request $request){
 
         $place = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:Place')
-            ->find($request->get('place_id'));
+            ->find($request->get('id'));
         /* @var $places Place[] */
 
         if (empty($place)){
@@ -55,14 +57,15 @@ class PlaceController extends Controller
         }
 
 
-        $formatted = [
-            'id' => $place->getId(),
-            'name' => $place->getName(),
-            'address' => $place->getAddress(),
-
-        ];
-
-        return new JsonResponse($formatted);
+//        $formatted = [
+//            'id' => $place->getId(),
+//            'name' => $place->getName(),
+//            'address' => $place->getAddress(),
+//
+//        ];
+//
+//        return new JsonResponse($formatted);
+        return $place;
 
     }
 }
