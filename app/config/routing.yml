@@ -6,6 +6,10 @@ places:
     resource: AppBundle\Controller\PlaceController
     type: rest
 
+prices:
+    resource: AppBundle\Controller\Place\PriceController
+    type: rest
+
 users:
     resource: AppBundle\Controller\UserController
     type: rest
